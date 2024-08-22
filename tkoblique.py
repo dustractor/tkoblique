@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import random
+from random import choice
+from textwrap import wrap
 
 data = """(Organic) machinery
 A line has two sides
@@ -209,8 +210,13 @@ Take away as much mystery as possible. What is left?""".splitlines()
 if __name__ == "__main__":
     app = tk.Tk()
     app.title("Oblique Strategy")
-    label = ttk.Label(app,text=random.choice(data),
-                      font=("Arial",72))
-    label.pack(fill="both",expand=True)
+    frame = ttk.Frame(app,padding="100px")
+    frame.pack(fill="both",expand=True)
+    s = choice(data)
+    lines = wrap(s,width=32)
+    for line in lines:
+        label = ttk.Label(frame,text=line,font=("Arial",72))
+        label.pack(fill="both",expand=True)
     app.bind("<Escape>",lambda _:app.quit())
+    app.bind("<Control-w>",lambda _:app.quit())
     app.mainloop()
